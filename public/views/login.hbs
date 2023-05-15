@@ -1,0 +1,57 @@
+<link rel='stylesheet' href='../css/style.css' />
+
+<body>
+    <div class="login-page">
+        <section>
+            <!-- Login Form -->
+            <div class="form-box-login" data-aos="fade-left">
+                <div class="form-value">
+                    <form action="" method="post">
+                        <div class="logo-login">
+                            <a href="/"><img src="img/logo.png" alt=""></a>
+                        </div>
+
+                        <h3 class="login-intro">Sign In</h3>
+
+                        <div class="form-outline mb-3">
+                            <label class="form-label" for="form2Example1">Username</label>
+                            <input type="text" id="" class="form-control" required name="username"
+                                placeholder="johnwick1726" value={{username}}>
+
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-2">
+                            <label class="form-label" for="form2Example2">Password</label>
+                            <input type="password" id="" class="form-control" required name="password"
+                                placeholder="Your password">
+
+                        </div>
+                        <!-- 2 column grid layout for inline styling -->
+                        <div class="row mb-4">
+                            <div class="col text-end">
+                                <!-- Simple link -->
+                                <a href="#!"
+                                    style="text-decoration: none; color: rgb(222, 222, 222); font-size: 14px; padding-right:0;">Forgot
+                                    password?</a>
+                            </div>
+                        </div>
+
+                        {{#if error}}
+                        <div class="alert alert-danger" style="text-align: center; font-size:15px;">{{error}}</div>
+                        {{/if}}
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-Signin mb-4">Sign In</button>
+
+                        <!-- Register buttons -->
+                        <div class="text-center bottom">
+                            <p style="padding-top: 20px; font-size:15px;">Not a member? <a href="/register"
+                                    style="text-decoration: none; color: yellow;">Sign Up</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+{{!-- </body> --}}

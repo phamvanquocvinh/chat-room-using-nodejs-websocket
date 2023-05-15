@@ -1,0 +1,50 @@
+<link rel='stylesheet' href='../css/style.css' />
+<div class="login-page">
+    <section>
+        <div class="form-box-signup" data-aos="fade-left">
+            <div class="form-value">
+                <form action="" method="post">
+                    <div class="logo-login">
+                        <a href="/"><img src="img/logo.png" alt=""></a>
+                    </div>
+
+                    <h3 class="login-intro">Sign Up</h3>
+
+                    <div id="name">
+                        <div class="form-outline mb-3" style="width: 45%">
+                            <label class="form-label" for="fullname">Full Name</label>
+                            <input type="text" id="" class="form-control" name="fullname" placeholder="John Wick" />
+                        </div>
+                        <div class="form-outline mb-3" style="width: 45%;">
+                            <label class="form-label" for="usermame">Username</label>
+                            <input type="text" id="" class="form-control" name="username" placeholder="johnwick1726" />
+                        </div>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-2">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="" class="form-control" name="password" placeholder="Your password" />
+                    </div>
+
+                    <div class="form-outline mb-2">
+                        <label class="form-label" for="confirm-password">Confirm Password</label>
+                        <input type="password" id="" class="form-control" name="confirm_password" placeholder="Your password"/>
+                    </div>
+                    {{#if loi}}
+                    <div class="alert alert-danger" style="text-align: center; font-size:15px;">{{loi}}</div>
+                    {{/if}}
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-Sign-up mb-4">Sign Up</button>
+
+                    <!-- Register buttons -->
+                    <div class="text-center bottom">
+                        <p style="padding-top: 20px; font-size:15px;">Already have an account? <a href="/login"
+                                style="text-decoration: none; color: yellow;">Sign In</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</div>

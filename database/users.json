@@ -1,0 +1,55 @@
+[{
+  "_id": {
+    "$oid": "6443487e2dcc51756a2a8a7f"
+  },
+  "username": "son123",
+  "fullname": "Tô Văn Sơn",
+  "password": "son123",
+  "status": false,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64434fb12dcc51756a2a8a90"
+  },
+  "username": "quocvinh123",
+  "fullname": "Quốc Vĩnh",
+  "password": "quocvinh123",
+  "status": false,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64434fe62dcc51756a2a8a9b"
+  },
+  "username": "hyvinh234",
+  "fullname": "Hỷ Vinh",
+  "password": "hyvinh234",
+  "status": false,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64437551609d6f9c5823e017"
+  },
+  "username": "vana123",
+  "fullname": "Nguyễn Văn A",
+  "password": "12345",
+  "status": false,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64437854609d6f9c5823e02c"
+  },
+  "username": "vanb123",
+  "fullname": "Nguyễn Văn B",
+  "password": "12345",
+  "status": false,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "644390bf060b771581778085"
+  },
+  "username": "admin",
+  "fullname": "Admin",
+  "password": "123456",
+  "status": false,
+  "__v": 0
+}]

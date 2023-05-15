@@ -1,0 +1,299 @@
+<div style="position: relative;max-width: 100%;display: flex;">
+    <div style="padding: 0px; position: relative; flex: 30%;">
+        <!-- Header -->
+        <div class="header_in_room">
+            <div class="cover">
+                <button class="button-group" type="button" data-bs-toggle="modal" data-bs-target="#profile">
+                    <div class="userimg">
+                        <img src="https://i.pravatar.cc/300" alt="">
+                    </div>
+                </button>
+
+            </div>
+            <div class="welcome">
+                <h3>Welcome</h3>
+                <p>{{fullname}}</p>
+            </div>
+
+        </div>
+        <!-- CHAT LIST -->
+        <div class="chatlist">
+            <div class="rules-img">
+                <img src="img/logo.png" alt="">
+            </div>
+            <div>
+                <p class="rules">Chat Room Etiquette</p>
+                <p class="rules-title">* Don't talk in CAPITAL LETTERS</p>
+                <p class="rules-content">In a chatroom, using a lot of CAPITALS or UPPER CASE is seen as shouting. Many
+                    people find it
+                    annoying when a user types entirely in capitals.</p>
+                <p class="rules-title">* Don't join a chatroom and then leave without saying something</p>
+                <p class="rules-content">It is considered impolite to enter a chatroom and then leave without saying
+                    something.</p>
+                <p class="rules-title">* Don't idle or lurk in a chatroom</p>
+                <p class="rules-content">When you are in a chatroom, do take part in the conversation. If you are going
+                    to be away from your
+                    computer for a short time, tell the other users. If you are a beginner, be polite and say something
+                    like, "I am new to chatting. Can I watch quietly for a few minutes?"</p>
+                <p class="rules-title">* Be patient</p>
+                <p class="rules-content">Try to be patient and wait if a user is slow to respond to you during a
+                    conversation. Remember that
+                    this is a person and they may have other things to do at the same time.</p>
+                <p class="rules-title">* In smaller chatrooms, ask if you are welcome</p>
+                <p class="rules-content">When you enter a chatroom that has only a few users, ask if it is a private
+                    chatroom, and if you are
+                    welcome there.</p>
+                <p class="rules-title">* Be friendly. Be polite. Be considerate</p>
+                <p class="rules-content">Remember that these are real people you are chatting with. They may have
+                    different opinions to you
+                    and come from very different cultures. Treat them properly and respect their opinions, and they will
+                    treat you the same.</p>
+            </div>
+        </div>
+    </div>
+    <div class="chatbox-wrapper" style="padding: 0px;position: relative; flex: 70%;">
+        <div class="header_in_chat">
+            <div class="cover">
+                <div class="userimg">
+                    <img src="https://picsum.photos/200" alt="">
+                </div>
+            </div>
+            <h3 id="room_name">~ Banana Chat ~</h3>
+            <button class="button-more" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight"><ion-icon name="ellipsis-vertical"></ion-icon></button>
+
+        </div>
+
+        <!-- CHAT-BOX -->
+        <div id="messages" class="chatbox">
+
+        </div>
+
+
+
+        <!-- CHAT INPUT -->
+        <div class="chat_input_container">
+            <form id="chat_input" class="chat_input">
+                <input id="message_input" type="text" placeholder="Type a message">
+                <ion-icon name="send-sharp"></ion-icon>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Profile -->
+<div class="modal fade" id="profile" tabindex="-1" aria-labelledby="profile-ModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title" id="profile-ModalLabel">Profile</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-block align-items-center">
+                <div class="user-profile-img">
+                    <img src="https://i.pravatar.cc/300" alt="">
+                </div>
+                <div class="user-profile text-center">
+                    <p class="fullname">{{fullname}}</p>
+                    <p id="username" class="username">{{username}}</p>
+                    <a href="/logout"><i style="font-size:20px; color: red"
+                            class="fa-solid fa-right-from-bracket"></i><span style="font-size:20px; color: red"
+                            id="menu-action3"> Logout</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- See member --}}
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header d-flex">
+        <p class="my-auto">Online members</p><br>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div id="usersOnline" class="offcanvas-body">
+        {{#each onlineUsers}}
+        <div class="user">
+            <img src="https://i.pravatar.cc/300" alt="">
+            <div class="user-info">
+                <p>{{username}}</p>
+                <div class="user-status online">
+                    <i class="fas fa-dot-circle"></i>
+                    <span id="status">Online</span>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+
+</div>
+
+<script>
+    //khởi tạo cái biến cần thiết
+    const socket = io();
+    const form = $('#chat_input');
+    const input = $('#message_input');
+    const messages = $('#messages');
+    const username = $('#username').text().trim();
+    //khi form chat được submit
+    form.submit((event) => {
+        event.preventDefault();
+        //phát tín hiệu cho user các giá trị 
+        socket.emit('chat message', { message: input.val(), username: username });
+        //làm trống khung chat
+        input.val('');
+        return false;
+    });
+
+    //khi có user login thì hiện ra div báo
+    socket.on('user login', ({ userId, username }) => {
+        const messages = $('#messages');
+        const newMessage = $('<div>').addClass('message1');
+        const meta = $('<p style="color: white">').addClass('meta').text('Chat-bot ').append($('<i style="color: #0078a1; padding-left:5px;">').addClass('fa-solid fa-circle-check'));
+        const text = $('<p>').addClass('text').text(username + ' has just join chat room.');
+        newMessage.append(meta, text);
+        messages.append(newMessage);
+    });
+    //khi có user logout thì hiện ra div báo
+    socket.on('user logout', (username) => {
+        const messages = $('#messages');
+        const newMessage = $('<div>').addClass('message1');
+        const meta = $('<p style="color: white">').addClass('meta').text('Chat-bot ').append($('<i style="color: #0078a1; padding-left:5px;">').addClass('fa-solid fa-circle-check'));
+        const text = $('<p>').addClass('text').text(username + ' has just left chat room.');
+        newMessage.append(meta, text);
+        messages.append(newMessage);
+    });
+    //phát cho user username
+    socket.emit('user connected', username);
+    //khi có user disconnect
+    socket.on('user disconnect', (username) => {
+        //lấy list user từ id usersOnline
+        const usersOnline = $('#usersOnline');
+        //xóa user disconnect khỏi list
+        const userItem = usersOnline.find(`div:contains(${username})`);
+        userItem.remove();
+        //update local storage của usersOnline
+        const storedUsers = JSON.parse(localStorage.getItem('usersOnline'));
+        const updatedUsers = storedUsers.filter(user => user.username !== username);
+        localStorage.setItem('usersOnline', JSON.stringify(updatedUsers));
+    });
+
+    const usersOnline = $('#usersOnline');
+    const storedUsers = JSON.parse(localStorage.getItem('usersOnline')) || [];
+    //nếu có users được lưu trong local storage thì load ra
+    if (storedUsers && storedUsers.length > 0) {
+        storedUsers.forEach((user) => {
+            const useronl = $('<div>').addClass('user');
+            const img = $('<img>').attr('src', 'https://i.pravatar.cc/300').attr('alt', '');
+            const userInfo = $('<div>').addClass('user-info');
+            const username = $('<p>').text(user.username);
+            const userStatus = $('<div>').addClass('user-status online');
+            const dotIcon = $('<i>').addClass('fas fa-dot-circle');
+            const status = $('<span>').attr('id', 'status').text('Online');
+            useronl.append(img, userInfo);
+            userInfo.append(username, userStatus);
+            userStatus.append(dotIcon, status);
+            usersOnline.append(useronl);
+        });
+    }
+    //khi có user online thì update
+    socket.on('update online users', (userList) => {
+        usersOnline.empty();
+        userList.forEach((user) => {
+            const useronl = $('<div>').addClass('user');
+            const img = $('<img>').attr('src', 'https://i.pravatar.cc/300').attr('alt', '');
+            const userInfo = $('<div>').addClass('user-info');
+            const username = $('<p>').text(user.username);
+            const userStatus = $('<div>').addClass('user-status online');
+            const dotIcon = $('<i>').addClass('fas fa-dot-circle');
+            const status = $('<span>').attr('id', 'status').text('Online');
+            useronl.append(img, userInfo);
+            userInfo.append(username, userStatus);
+            userStatus.append(dotIcon, status);
+            usersOnline.append(useronl);
+        });
+
+        //update stored users trong local storage
+        localStorage.setItem('usersOnline', JSON.stringify(userList));
+    });
+
+    $(document).ready(() => {
+        //lấy div id message
+        const messages = $('#messages');
+        //tạo stored mesages trong local storage từ messages
+        let storedMessages = JSON.parse(localStorage.getItem('messages')) || [];
+        //nếu tồn tại messages được lưu trong local storage thì load ra
+        if (storedMessages && storedMessages.length > 0) {
+            storedMessages.forEach((msg) => {
+                const timestamp = new Date(msg.timestamp).toLocaleString();
+                if (msg.username != username) {
+                    const newMessage = $('<div>').addClass('message friend_msg');
+                    const messageContent = $('<p>').append($('<span>').text(`${msg.username}`)).append(msg.content).append($('<br>')).append($('<span>').text(timestamp));
+                    newMessage.append(messageContent);
+                    messages.append(newMessage);
+                } else {
+                    const newMessage1 = $('<div>').addClass('message my_msg');
+                    const messageContent1 = $('<p>').text(msg.content).append($('<br>')).append($('<span>').text(timestamp))
+                    newMessage1.append(messageContent1);
+                    messages.append(newMessage1);
+                }
+            });
+        }
+
+        //Load tin nhắn mới
+        socket.emit('get messages');
+        socket.on('messages', (data) => {
+            //lưu message mới vào local storage
+            localStorage.setItem('messages', JSON.stringify(data));
+
+            // Xóa tin nhắn cũ trên giao diện
+            messages.empty();
+
+            // Hiển thị các tin nhắn mới lấy được từ server
+            data.forEach((msg) => {
+                const timestamp = new Date(msg.timestamp).toLocaleString();
+                if (msg.username != username) {
+                    const newMessage = $('<div>').addClass('message friend_msg');
+                    const messageContent = $('<p>').append($('<span>').text(`${msg.username}`)).append(msg.content).append($('<br>')).append($('<span>').text(timestamp));
+                    newMessage.append(messageContent);
+                    messages.append(newMessage);
+                } else {
+                    const newMessage1 = $('<div>').addClass('message my_msg');
+                    const messageContent1 = $('<p>').text(msg.content).append($('<br>')).append($('<span>').text(timestamp))
+                    newMessage1.append(messageContent1);
+                    messages.append(newMessage1);
+                }
+            });
+        });
+        //khi chat thì tạo ra div mới cho khung chat
+        socket.on('chat message', (data) => {
+            const timestamp = new Date().toLocaleString();
+            if (data.username != username) {
+                const newMessage = $('<div>').addClass('message friend_msg');
+                const messageContent = $('<p>').append($('<span>').text(`${data.username}`)).append(data.message).append($('<br>')).append($('<span>').text(timestamp));
+                newMessage.append(messageContent);
+                messages.append(newMessage);
+            }
+            else {
+                const newMessage1 = $('<div>').addClass('message my_msg');
+                const messageContent1 = $('<p>').text(data.message).append($('<br>')).append($('<span>').text(timestamp))
+                newMessage1.append(messageContent1);
+                messages.append(newMessage1);
+            }
+            //lưu tin nhắn mới vào local storage messages
+            storedMessages.push({ username: data.username, content: data.message, timestamp: timestamp });
+
+            //update local storage
+            localStorage.setItem('messages', JSON.stringify(storedMessages));
+        });
+    });
+</script>
+
+
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>

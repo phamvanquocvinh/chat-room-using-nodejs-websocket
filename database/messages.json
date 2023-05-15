@@ -1,0 +1,61 @@
+[{
+  "_id": {
+    "$oid": "644348a82dcc51756a2a8a85"
+  },
+  "username": "son123",
+  "content": "Hi!",
+  "timestamp": {
+    "$date": "2023-04-22T02:38:32.770Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64434fbc2dcc51756a2a8a96"
+  },
+  "username": "quocvinh123",
+  "content": "Hello",
+  "timestamp": {
+    "$date": "2023-04-22T03:08:44.975Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64434fff2dcc51756a2a8aa1"
+  },
+  "username": "hyvinh234",
+  "content": "Rất vui được gặp các bạn",
+  "timestamp": {
+    "$date": "2023-04-22T03:09:51.693Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "644375a4609d6f9c5823e01d"
+  },
+  "username": "vana123",
+  "content": "xin chào",
+  "timestamp": {
+    "$date": "2023-04-22T05:50:28.114Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64437870609d6f9c5823e032"
+  },
+  "username": "vanb123",
+  "content": "xin chào",
+  "timestamp": {
+    "$date": "2023-04-22T06:02:24.163Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64437878609d6f9c5823e034"
+  },
+  "username": "vana123",
+  "content": "chào bạn",
+  "timestamp": {
+    "$date": "2023-04-22T06:02:32.404Z"
+  },
+  "__v": 0
+}]
